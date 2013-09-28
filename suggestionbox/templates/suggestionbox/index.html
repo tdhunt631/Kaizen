@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}改善 - List of Suggestions{% endblock %}
+
+{% block content %}
+
+{% if suggestions %}
+<h1>List of Suggestions</h1>
+
+
+
+<table class="table">
+<tr>
+    <th>Author</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Pub Date</th>
+    <th>Status</th>
+    <th>Category</th>
+</tr>
+{% for suggestion in suggestions %}
+<tr>
+    <td>{{ suggestion.user }}</td>
+    <td><a href="{% url 'suggestionbox:detail' suggestion.id %}">{{ suggestion.title }}</a></td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.pub_date }}</td>
+    <td>{{ suggestion.status }}</td>
+    <td>{{ suggestion.category }}</td>
+</tr>
+
+{{ suggestion.title }}
+
+{% endfor %}
+</table>
+
+{% else %}
+<h1>No Suggestions Yet</h1>
+<p>Be the first of your friends to suggest something.</p>
+{% endif %}
+
+{% endblock %}

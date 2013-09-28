@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}改善 (Kaizen!!){% endblock %}</title>
+        <!-- Latest compiled and minified CSS -->
+        <!-- see http://netdna.bootstrapcdn.com/#bootswatch for some other "flavors" to try -->
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale: 1.0">
+        <style type="text/css">
+           body { padding-top: 70px; }
+        </style>
+        {% block extrascripts %}{% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <a class="navbar-brand" href="/">Django Is Awesome</a>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/contact/">Contact Me</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li><a href="/admin/"><span class="glyphicon glyphicon-user"></span> Admin</a></li>
+                    <li><a href="{% url 'auth_logout' %}"> Log Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <div class="body-content">
+                <div class="row">
+                    <!-- main content area -->
+                    <div class="col-lg-9">
+                    {% block content %}
+                    {% endblock %}
+				</div><!-- body-content -->
+            <hr>
+            <footer>
+                Copyright &copy;2013 Travis Hunt. All rights reserved.
+            </footer>
+        </div><!-- container -->
+    </body>
+<html>

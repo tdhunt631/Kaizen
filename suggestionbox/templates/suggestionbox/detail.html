@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}改善 - Details for {{ suggestion.title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ suggestion.title }}</h1>
+
+<p>{{ suggestion.description }}</p>
+
+<table class="table">
+<tr> <td>Suggested by:</td><td>{{ suggestion.user }}</td></tr>
+    <tr><td>Published Date:</td><td>{{ suggestion.pub_date }}</td></tr>
+    <tr><td>Status</td><td>{{ suggestion.status }}</td></tr>
+    <tr><td>Category</td><td>{{ suggestion.category }}</td></tr>
+</tr>
+</table>
+
+<p>-- comments go here --</p>
+
+
+{% endblock %}
