@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
 # Create your models here.
 
@@ -44,3 +45,7 @@ class Comment(models.Model):
     def __unicode__(self):
         return self.comment[:50]
 
+class SuggestionForm(ModelForm):
+	class Meta:
+		model = Suggestion
+		fields = ['title', 'description', 'category']

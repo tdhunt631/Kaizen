@@ -4,38 +4,62 @@
 
 {% block content %}
 
-{% if suggestions %}
-<h1>List of Suggestions</h1>
-
-
-
-<table class="table">
-<tr>
-    <th>Author</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Pub Date</th>
-    <th>Status</th>
-    <th>Category</th>
-</tr>
-{% for suggestion in suggestions %}
-<tr>
-    <td>{{ suggestion.user }}</td>
-    <td><a href="{% url 'suggestionbox:detail' suggestion.id %}">{{ suggestion.title }}</a></td>
-    <td>{{ suggestion.description }}</td>
-    <td>{{ suggestion.pub_date }}</td>
-    <td>{{ suggestion.status }}</td>
-    <td>{{ suggestion.category }}</td>
-</tr>
-
-{{ suggestion.title }}
-
-{% endfor %}
-</table>
-
-{% else %}
-<h1>No Suggestions Yet</h1>
-<p>Be the first of your friends to suggest something.</p>
-{% endif %}
-
+{# List of suggestions #}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3>Current List of Suggestions</h3>
+		{% if user.is_authenticated %}
+			<a href="addSuggestion" class="btn btn-primary">Add Suggestion</a>
+		{% else %}
+			<p> &nbsp; Please log in for more details or to add a suggestion.</p>
+		{% endif %}
+	</div>
+	<div class="panel-body">
+		{% if not suggestions %}
+			{# If no suggestions to display #}
+			<h1>Suggestion Box is Empty!</h1>
+			<p> &nbsp; Would you like to add something? </p>
+		{% else %}
+			{# If there are suggestions to be viewed #}
+			<table class="table">
+				<tr>
+    				{# Only show if logged in #}
+                    {% if user.is_authenticated %}
+						<th>Author</th>
+	    				<th>Title</th>
+    					<th>Description</th>
+    					<th>Category</th>
+    					<th>Pub Date</th>
+    					<th>Status</th>
+					{% else %}
+						<th>Title</th>
+    					<th>Category</th>
+    					<th>Pub Date</th>
+					{% endif %}
+    			</tr>
+				{% for suggestion in suggestions %}
+	                {% if user.username|stringformat:"s" == suggestion.user|stringformat:"s" %}
+						<tr style="background: #F2F6FF">
+					{% else %}
+						<tr>
+					{% endif %}
+					{# Only show author if logged in #}
+                    {% if user.is_authenticated %}
+						<td>{{ suggestion.user }}</td>
+						<td><a href="{% url 'suggestionbox:detail' suggestion.id %}">{{ suggestion.title }}</a></td>
+						<td>{{ suggestion.description }}</td>
+    					<td>{{ suggestion.category }}</td>
+    					<td>{{ suggestion.pub_date }}</td>
+    					<td>{{ suggestion.status }}</td>
+					{% else %}
+						<td>{{ suggestion.title }}</td>
+    					<td>{{ suggestion.category }}</td>
+    					<td>{{ suggestion.pub_date }}</td>
+					{% endif %}
+				</tr>
+		{% endfor %}
+			</table>
+		{% endif %}
+	</div>	
+</div>
 {% endblock %}

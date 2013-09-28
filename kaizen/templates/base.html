@@ -19,9 +19,9 @@
     <body>
         <div class="container">
             <div class="navbar navbar-default navbar-fixed-top">
-                <a class="navbar-brand" href="/">Django Is Awesome</a>
+                <a class="navbar-brand" href="/">Travis Hunt - Kaizen</a>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
+                    <li class="active"><a href="/">Suggestion Box</a></li>
                     <li><a href="/contact/">Contact Me</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -29,11 +29,11 @@
                     <li><a href="/admin/"><span class="glyphicon glyphicon-user"></span> Admin</a></li>
                     <li><a href="{% url 'auth_logout' %}"> Log Out</a></li>
                     {% else %}
-                    <li><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+                   <li><a href="{% url 'auth_login' %}"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+					<li><a href="/accounts/register/">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
-            
             <div class="body-content">
                 <div class="row">
                     <!-- main content area -->
@@ -43,7 +43,7 @@
 				</div><!-- body-content -->
             <hr>
             <footer>
-                Copyright &copy;2013 Travis Hunt. All rights reserved.
+                Copyright &copy; 2013 Travis Hunt. All rights reserved.
             </footer>
         </div><!-- container -->
     </body>
