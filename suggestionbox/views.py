@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.forms import ModelForm
 from suggestionbox.models import Suggestion, SuggestionForm, Comment, Status, Category
 
@@ -22,8 +23,11 @@ def detail(request, suggestion_id):
 @login_required
 def addSuggestion(request):
 	if request.method == 'POST':
-		data = SuggestionForm(request.POST)	
-		newSuggestion = data.save()
+		data = SuggestionForm(request.POST)
+		form  = data.save(commit=False)
+		form.user = request.user	
+		form.status = get_object_or_404(Status, title="Pending")
+		form.save()
 		return HttpResponseRedirect('/')
 	else:
 		suggestionForm = SuggestionForm()

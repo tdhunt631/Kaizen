@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-# Create your models here.
-
 class Suggestion(models.Model):
     user = models.ForeignKey(User)
     title = models.CharField(max_length=100)
@@ -14,7 +12,6 @@ class Suggestion(models.Model):
 
     def __unicode__(self):
         return self.title
-        
 
 class Status(models.Model):
     title = models.CharField(max_length=100)
