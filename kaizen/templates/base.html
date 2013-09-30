@@ -12,8 +12,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale: 1.0">
         <style type="text/css">
-           body { padding-top: 70px; }
-        </style>
+        	body { padding-top: 70px; }
+		</style>
         {% block extrascripts %}{% endblock %}
     </head>
     <body>
@@ -21,9 +21,9 @@
             <div class="navbar navbar-default navbar-fixed-top">
                 <a class="navbar-brand" href="/">Travis Hunt - Kaizen</a>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Suggestion Box</a></li>
+                    <li><a href="/">Suggestion Box</a></li>
                 	{% if user.is_authenticated %}
-                    	<li><a href="/admin/">Admin</a></li>
+                    	<li><a href="/admin/">Administration</a></li>
                     {% endif %}
 				</ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -36,16 +36,9 @@
                 </ul>
             </div>
             <div class="body-content">
-                <div class="row">
-                    <!-- main content area -->
-                    <div class="col-lg-9">
-                    {% block content %}
-                    {% endblock %}
-				</div><!-- body-content -->
-            <hr>
-            <footer>
-                Copyright &copy; 2013 Travis Hunt. All rights reserved.
-            </footer>
-        </div><!-- container -->
-    </body>
+				{% block content %}
+                {% endblock %}
+			</div><!-- body-content -->
+		</div><!-- container -->
+	</body>
 <html>

@@ -46,3 +46,13 @@ class SuggestionForm(ModelForm):
 	class Meta:
 		model = Suggestion
 		fields = ['title', 'description', 'category']
+
+class CommentForm(ModelForm):
+	class Meta:
+		model = Comment
+		fields = ['comment']
+
+	def __init__(self, *args, **kwargs):
+		super(CommentForm, self).__init__(*args, **kwargs)
+		self.fields['comment'].widget.attrs['class'] = "form-control"
+		self.fields['comment'].widget.attrs['rows'] = "2"

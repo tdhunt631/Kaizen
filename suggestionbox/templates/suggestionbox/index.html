@@ -7,7 +7,11 @@
 {# List of suggestions #}
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3>Current List of Suggestions</h3>
+		{% if user.is_authenticated %}
+			<h3>Hello, {{ user.username }}. Here is your List of Suggestions.</h3>
+		{% else %}
+			<h3>Current List of Suggestions</h3>
+		{% endif %}
 		{% if user.is_authenticated %}
 			<a href="addSuggestion" class="btn btn-primary">Add Suggestion</a>
 		{% else %}
@@ -22,15 +26,15 @@
 		{% else %}
 			{# If there are suggestions to be viewed #}
 			<table class="table">
-				<tr>
+				<tr style="border: 0px">
     				{# Only show if logged in #}
                     {% if user.is_authenticated %}
-						<th>Author</th>
-	    				<th>Title</th>
-    					<th>Description</th>
-    					<th>Category</th>
-    					<th>Pub Date</th>
-    					<th>Status</th>
+						<th style="border: 0px">Author</th>
+	    				<th style="border: 0px">Title</th>
+    					<th style="border: 0px">Description</th>
+    					<th style="border: 0px">Category</th>
+    					<th style="border: 0px">Pub Date</th>
+    					<th style="border: 0px">Status</th>
 					{% else %}
 						<th>Title</th>
     					<th>Category</th>

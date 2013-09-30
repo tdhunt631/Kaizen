@@ -3,20 +3,56 @@
 {% block title %}改善 - Details for {{ suggestion.title }}{% endblock %}
 
 {% block content %}
-
-<h1>{{ suggestion.title }}</h1>
-
-<p>{{ suggestion.description }}</p>
-
-<table class="table">
-<tr> <td>Suggested by:</td><td>{{ suggestion.user }}</td></tr>
-    <tr><td>Published Date:</td><td>{{ suggestion.pub_date }}</td></tr>
-    <tr><td>Status</td><td>{{ suggestion.status }}</td></tr>
-    <tr><td>Category</td><td>{{ suggestion.category }}</td></tr>
-</tr>
-</table>
-
-<p>-- comments go here --</p>
-
-
+	<a href="{% url 'suggestionbox:index' %}" class="btn btn-primary">Back to suggestions</a>
+	<br>
+	<br>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h1>{{ suggestion.title }}</h1>
+			<p>{{ suggestion.description }}</p>
+		</div>	
+		<div class="panel-body">
+		<table class="table">
+			<tr style="border: 0px">
+				<td style="border: 0px">Suggested by:</td>
+				<td style="border: 0px">{{ suggestion.user }}</td>
+			</tr>
+			<tr>
+				<td>Published Date:</td>
+				<td>{{ suggestion.pub_date }}</td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td>{{ suggestion.status }}</td>
+			</tr>
+			<tr>
+				<td>Category</td>
+				<td>{{ suggestion.category }}</td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	<form method="POST" action="{% url 'suggestionbox:addComment' suggestion.id %}" class="form-horizontal" role="form">
+		{% csrf_token %}
+		<div class="form-group">
+			<div class="col-lg-10">
+				{{commentForm}}
+		</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-10 clearfix">
+				<button type="submit" class="btn btn-primary pull-right">Add comment</button>
+			</div>
+		</div>
+	</form>
+	{% if comments %}
+		<h3 style="margin-bottom: 0">User Comments:</h3>
+		{% for comment in comments %}
+			<hr style="margin-left: 20px">
+			<p style="color:#999999; font-size: 10px">Posted by <strong>{{ comment.user }}</strong> on {{ comment.pub_date }}</p>
+			<p style="padding-left: 20px;">{{ comment.comment }}</p>
+		{% endfor %}
+	{% else %}
+		<h3>No comments yet.  Be the first!</h3>		
+	{% endif %}
 {% endblock %}
