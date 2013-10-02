@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 
 class Suggestion(models.Model):
     user = models.ForeignKey(User)
@@ -56,3 +56,13 @@ class CommentForm(ModelForm):
 		super(CommentForm, self).__init__(*args, **kwargs)
 		self.fields['comment'].widget.attrs['class'] = "form-control"
 		self.fields['comment'].widget.attrs['rows'] = "2"
+
+class StatusForm(ModelForm):
+	status = ModelChoiceField(queryset=Status.objects.all(), empty_label=None)
+	
+	def __init__(self, *args, **kwargs):
+		super(StatusForm, self).__init__(*args, **kwargs)
+
+	class Meta:
+		model = Status
+		fields = ['status']

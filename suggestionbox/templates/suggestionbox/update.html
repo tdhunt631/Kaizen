@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}改善 Update Status Details for {{ suggestion.title }}{% endblock %}
+
+{% block content %}
+	<a href="{% url 'suggestionbox:index' %}" class="btn btn-primary">Back to suggestions</a>
+	<br>
+	<br>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h1>{{ suggestion.title }}</h1>
+			<p>{{ suggestion.description }}</p>
+		</div>	
+		<div class="panel-body">
+		<table class="table">
+			<tr style="border: 0px">
+				<td style="border: 0px">Suggested by:</td>
+				<td style="border: 0px">{{ suggestion.user }}</td>
+			</tr>
+			<tr>
+				<td>Published Date:</td>
+				<td>{{ suggestion.pub_date }}</td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td>{{ suggestion.status }}</td>
+			</tr>
+			<tr>
+				<td>Category</td>
+				<td>{{ suggestion.category }}</td>
+			</tr>
+		</table>
+		</div>
+	</div>
+{% endblock %}

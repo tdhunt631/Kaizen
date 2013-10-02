@@ -12,26 +12,42 @@
 			<p>{{ suggestion.description }}</p>
 		</div>	
 		<div class="panel-body">
-		<table class="table">
-			<tr style="border: 0px">
-				<td style="border: 0px">Suggested by:</td>
-				<td style="border: 0px">{{ suggestion.user }}</td>
-			</tr>
-			<tr>
-				<td>Published Date:</td>
-				<td>{{ suggestion.pub_date }}</td>
-			</tr>
-			<tr>
-				<td>Status</td>
-				<td>{{ suggestion.status }}</td>
-			</tr>
-			<tr>
-				<td>Category</td>
-				<td>{{ suggestion.category }}</td>
-			</tr>
-		</table>
+		{% if user.is_staff %}
+			<form action="{% url 'suggestionbox:updateStatus' suggestion.id %}" method="post" id="updateStatus" name="updateStatus">
+			{% csrf_token %}
+		{% endif %}
+			<table class="table">
+				<tr style="border: 0px">
+					<th style="border: 0px">Suggested by:</th>
+					<td style="border: 0px">{{ suggestion.user }}</td>
+				</tr>
+				<tr>
+					<th>Published Date:</th>
+					<td>{{ suggestion.pub_date }}</td>
+				</tr>
+				{% if user.is_staff %}
+					{{ statusForm.as_table }}
+				{% else %}
+					<tr>
+						<th>Status:</th>
+						<td>{{ suggestion.status}}</td>
+					</tr>
+				{% endif %}
+				<tr>
+					<th>Category</th>
+					<td>{{ suggestion.category }}</td>
+				</tr>
+			</table>
 		</div>
 	</div>
+	{% if user.is_staff %}
+		<div class="clearfix">
+			<button type="submit" class="btn btn-primary pull-right">Update Status</button>
+		</div>
+			</form>
+		<br>
+	{% endif %}
+
 	<form method="POST" action="{% url 'suggestionbox:addComment' suggestion.id %}" class="form-horizontal" role="form">
 		{% csrf_token %}
 		<div class="form-group">
